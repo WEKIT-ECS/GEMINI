@@ -1,4 +1,0 @@
-var dir_e5d55904e4a1954b9b9d0aae314dab04 =
-[
-    [ "gemini", "dir_db5a199572c4812892e47204c6809354.html", "dir_db5a199572c4812892e47204c6809354" ]
-];

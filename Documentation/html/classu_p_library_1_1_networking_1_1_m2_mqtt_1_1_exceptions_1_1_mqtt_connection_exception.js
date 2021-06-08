@@ -1,4 +1,0 @@
-var classu_p_library_1_1_networking_1_1_m2_mqtt_1_1_exceptions_1_1_mqtt_connection_exception =
-[
-    [ "MqttConnectionException", "classu_p_library_1_1_networking_1_1_m2_mqtt_1_1_exceptions_1_1_mqtt_connection_exception.html#a33ab4093e0dccc6cee80b32829a59abd", null ]
-];
