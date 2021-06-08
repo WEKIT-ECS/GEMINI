@@ -4,10 +4,9 @@
 
 The Gemini package is a framework for the creation of Digital Twins in Unity.
 It provides a built in custom editor window, which guides the user through the process of creating their own Digital Twin.
-Configuration of network protocols are made uncomplicated and basic support for MQTT and GraphQL are provided.
+Configuration of network protocols are made uncomplicated and basic support for MQTT is provided.
 Further, we allow the user to easily configure sensors of a device as inputs of the Digital Twin.
 We provide and generate basic prefabs, that can be used to visualize and simulate the data received from the real device.
-Finally, our manager scripts track all registered objects, trigger events, and are able to replay collected data.
 
 ![](images/brewery_scene.png)
 
@@ -18,7 +17,7 @@ Finally, our manager scripts track all registered objects, trigger events, and a
 
 **Programming Language**: C#
 
-**Supported network protocols**: MQTT, Graph Ql
+**Supported network protocols**: MQTT
 
 **Message format**: JSON
 
@@ -30,7 +29,7 @@ Simply open the Unity package manager through **Window > Package Manager**. Then
 ## Usage
 
 Download the Gemini package and import it into a Unity project.
-Load the pre-configured scene under ***Scenes/GEMINI Digital Twin*** and start the plugin from the ***Gemini Editor > Run*** menu entry.
+Load the pre-configured scene under ***Scenes/GEMINI Digital Twin*** or start working in your own scene immediately. Then launch the plugin from the ***Gemini Editor > Run*** menu entry.
 The wizard will take you step by step through the process of configuring the basics of your Digital Twin implementation.
 
 For more detailed instructions check out our **user guide**.
