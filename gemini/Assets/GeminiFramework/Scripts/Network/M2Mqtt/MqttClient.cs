@@ -128,7 +128,7 @@ namespace Gemini.Network
         {
             try
             {
-                return InputDatabaseObject.LoadAsset(Config.Instance.Name_ofYourDigitalTwin).mqtt.topics;
+                return InputDatabaseObject.LoadAsset(Config.Instance.Name_ofYourDigitalTwin).GetTopics();
             }
             catch
             {
