@@ -1,5 +1,6 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
+using System.Linq;
 using System.IO;
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -61,6 +62,17 @@ namespace Gemini.Plugin
         public static InputDatabaseObject LoadAsset(string path)
         {
             return (InputDatabaseObject)Resources.Load(path);
+        }
+        
+        public List<string> GetTopics()
+        {
+            HashSet<string> inputTopics = new HashSet<string>();
+            foreach (Input i in inputList)
+            {
+                inputTopics.Add(i.topic);
+            }
+            this.mqtt.topics = inputTopics.ToList();
+            return inputTopics.ToList();
         }
     }
 }
