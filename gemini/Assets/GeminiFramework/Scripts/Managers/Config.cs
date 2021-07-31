@@ -252,17 +252,22 @@ namespace Gemini.Managers
             {
                 // http://james.newtonking.com/archive/2014/02/01/json-net-6-0-release-1-%E2%80%93-jsonpath-and-f-support
                 // https://goessner.net/articles/JsonPath/
-                try
-                {
-                    JObject o = JObject.Parse(msg);
-                    var mappedValue = o.SelectToken(map.path);
-                    EventManager.TriggerEvent(map.GetId().ToString(), DateTimeOffset.Now.ToString() + "#" + mappedValue);
-                    Debug.Log("Resolving on topic: \"" + topic + "\"\n" + msg);
-                }
+                JObject o;
+                JToken mappedValue;
+                try { o = JObject.Parse(msg); }
                 catch
-                {
+                { 
+                    Debug.Log("Could not parse " + msg + ".");
                     continue;
                 }
+                try { mappedValue = o.SelectToken(map.path); }
+                catch
+                {
+                    Debug.Log("Could not find path " + map.path + " in " + msg + ".");
+                    continue;
+                }
+                EventManager.TriggerEvent(map.GetId().ToString(), DateTimeOffset.Now.ToString() + "#" + mappedValue);
+                Debug.Log("Resolving on topic: \"" + topic + "\"\n" + msg);
             }
         }
 

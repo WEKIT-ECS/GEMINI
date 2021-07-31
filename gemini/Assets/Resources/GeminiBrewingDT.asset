@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a9d7179f44c7b2419816ceb1851fdc2, type: 3}
+  m_Name: GeminiBrewingDT
+  m_EditorClassIdentifier: 
+  mqtt:
+    type: MQTT
+    ipAddress: localhost
+    port: 1883
+    topics:
+    - brewing
+  format: JSON
+  inputList:
+  - states:
+    - name: cold
+      identifier: 20
+    - name: medium
+      identifier: 42
+    - name: hot
+      identifier: 120
+    name: Kettle Temperature
+    stateRanges: ' [cold ; medium ; hot ; +INF]'
+    topic: brewing
+    path: $.temp
+    type: float
