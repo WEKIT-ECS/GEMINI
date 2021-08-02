@@ -95,11 +95,6 @@ namespace Gemini.Managers
             return GetEditorResourcesPath() + "/" + (IsNameValid() ? Instance.Name_ofYourDigitalTwin : "YourDT") + ".asset";
         }
 
-        public static string GetSettingsPath()
-        {
-            return GetEditorResourcesPath() + "/" + (IsNameValid() ? Instance.Name_ofYourDigitalTwin : "YourDT") + "Xml" + ".xml";
-        }
-
         private static bool IsNameValid()
         {
             return (Instance.Name_ofYourDigitalTwin != null && Instance.Name_ofYourDigitalTwin != "");
@@ -145,51 +140,7 @@ namespace Gemini.Managers
             Debug.Log("Search for " + obj.name + " in Config SensorMappings could not be completed.");
             return null;
         }
-
-        public static SensorMapping GetSensorMapping(String sensorName)
-        {
-            if (!Instance || Instance.sensorMapping == null)
-            {
-                Debug.Log("Config SensorMappings is null.");
-                return null;
-            }
-            foreach (SensorMapping map in Instance.sensorMapping)
-            {
-                if (map.sensorName.Equals(sensorName))
-                {
-                    return map;
-                }
-            }
-            if (Application.isEditor && !Application.isPlaying)
-            {
-                Debug.Log("Please map inputs to gameobjects: " + sensorName + " not mapped.");
-            }
-            Debug.Log("Search for " + sensorName + " in Config SensorMappings could not be completed.");
-            return null;
-        }
-
-        public static SensorMapping GetSensorMapping(String topic, String path)
-        {
-            if (!Instance || Instance.sensorMapping == null)
-            {
-                Debug.Log("Config SensorMappings is null.");
-                return null;
-            }
-            foreach (SensorMapping map in Instance.sensorMapping)
-            {
-                if (map.topic.Equals(topic) && map.path.Equals(path))
-                {
-                    return map;
-                }
-            }
-            if (Application.isEditor && !Application.isPlaying)
-            {
-                Debug.Log("Please map inputs to gameobjects: " + path + " at " + topic + " not mapped.");
-            }
-            Debug.Log("Search for " + path + "@" + topic + " in Config SensorMappings could not be completed.");
-            return null;
-        }
-
+        
         public static List<SensorMapping> GetSensorMappings(String topic)
         {
             List<SensorMapping> result = new List<SensorMapping>();

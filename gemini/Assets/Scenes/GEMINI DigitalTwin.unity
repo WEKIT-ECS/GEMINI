@@ -787,7 +787,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name_ofYourDigitalTwin: GeminiBrewingDT
   sensorMapping:
-  - sensorName: Kettle 0
+  - sensorName: Kettle Temperature
     topic: brewing
     path: $.temp
     mappedObject: {fileID: 1549028803}

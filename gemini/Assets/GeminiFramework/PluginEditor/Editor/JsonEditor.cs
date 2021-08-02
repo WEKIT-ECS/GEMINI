@@ -27,7 +27,7 @@ using Gemini.Managers;
 
             public void OpenWindow()
             {
-                var asset = AssetDatabase.LoadAssetAtPath(Config.GetSettingsPath(), typeof(InputDatabaseObject));
+                var asset = AssetDatabase.LoadAssetAtPath(Config.GetAssetPath(), typeof(InputDatabaseObject));
                 if (asset == null)
                 {
                     CreateAsset();
