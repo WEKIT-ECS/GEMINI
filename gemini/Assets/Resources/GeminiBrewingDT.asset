@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a9d7179f44c7b2419816ceb1851fdc2, type: 3}
-  m_Name: YourDT_06-08-2021_19-53-48
+  m_Name: GeminiBrewingDT
   m_EditorClassIdentifier: 
   path: Assets/Resources/YourDT_06-08-2021_19-53-48.asset
   mqtt:

@@ -271,8 +271,7 @@ using Gemini.Managers;
                 var inputDatabaseObject = Selection.activeObject as InputDatabaseObject;
                 GameObject barPrefabRef = (GameObject)AssetDatabase.LoadMainAssetAtPath("Assets/GeminiFramework/Prefabs/ProgressBar/ProgressBar.prefab");
                 foreach (InputDatabaseObject.Input input in inputDatabaseObject.inputList)
-                {
-                    Debug.Log("hi");                    
+                {              
                     GameObject instanceRoot = (GameObject)PrefabUtility.InstantiatePrefab(barPrefabRef);
                     instanceRoot.GetComponent<ProgressBar>().states = input.states;
                     List <Color> sColors = new List<Color>();
