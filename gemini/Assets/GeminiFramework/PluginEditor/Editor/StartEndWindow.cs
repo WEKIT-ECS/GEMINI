@@ -1,5 +1,4 @@
-﻿﻿
-using System;
+﻿﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +22,6 @@ using Gemini.Managers;
         {
             private float _space = 20f;
             private static int _selected = 1; // 0=New, 1=Load
-            [SerializeField] string dtName="YourDT";
 
             [MenuItem("Gemini Editor/Run")]
             public static void GetEditorWindow()
@@ -34,6 +32,8 @@ using Gemini.Managers;
 
             private void OnGUI()
             {
+                EditorPrefs.DeleteAll();
+                
                 GUILayout.Label("Welcome to the Gemini Plugin!", EditorStyles.largeLabel);
                 GUILayout.Label("The guide will assist you in configuring your Digital Twin successfully.", EditorStyles.largeLabel);
                 GUILayout.Label("You now have the possibility to configure a new Digital Twin or to load an already created configuration from a file.", EditorStyles.largeLabel);
@@ -43,18 +43,20 @@ using Gemini.Managers;
                 _selected = GUILayout.SelectionGrid(_selected, options, 1, EditorStyles.radioButton);
                 GUILayout.Space(_space);
 
-                dtName = EditorGUILayout.TextField("Name of Digital Twin", dtName);
-
-                if (GUILayout.Button("Next", GUILayout.Width(150)))
+                EditorGUI.BeginChangeCheck();
+                io = (InputDatabaseObject)EditorGUILayout.ObjectField(io, typeof(InputDatabaseObject), true);
+                if (EditorGUI.EndChangeCheck() && io != null)
                 {
-                    loadFromSettings = _selected!=0;
+                    SelectAsset();
+                    Config.Instance.YourDatabaseObject = io;
+                }
+
+                if (GUILayout.Button("Next", GUILayout.Width(150)) && (io != null || _selected == 0))
+                {
+                    loadFromSettings = (_selected == 1);
                     inStartingWindow = false;
-                    if (dtName.Equals(""))
-                        dtName = "YourDT";
                     if (!loadFromSettings)
-                        EditorPrefs.DeleteAll();
-                    Config.Instance.Name_ofYourDigitalTwin = dtName;
-                    CreateAsset();
+                        CreateAsset();
                     SelectAsset();
                     this.Close();
                     NetworkProtocolEditor.GetEditorWindow();
@@ -78,7 +80,6 @@ using Gemini.Managers;
                 EditorPrefs.SetString("StartWindow", data);
             }
         }
-
 
         ///<summary>
         /// Final window.

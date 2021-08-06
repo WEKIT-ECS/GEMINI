@@ -93,11 +93,10 @@ namespace Gemini.Network
         {
             try
             {
-                return InputDatabaseObject.LoadAsset(Config.Instance.Name_ofYourDigitalTwin).mqtt.ipAddress;
+                return Config.Instance.YourDatabaseObject.mqtt.ipAddress;
             }
             catch
             {
-                Debug.Log("Tried loading settings for: " + Config.Instance.Name_ofYourDigitalTwin);
                 Debug.Log("Network settings not found. Did you run the Gemini Editor?");
             }
             return "localhost";
@@ -111,7 +110,7 @@ namespace Gemini.Network
         {
             try
             {
-                return Int32.Parse(InputDatabaseObject.LoadAsset(Config.Instance.Name_ofYourDigitalTwin).mqtt.port);
+                return Int32.Parse(Config.Instance.YourDatabaseObject.mqtt.port);
             }
             catch
             {
@@ -128,7 +127,7 @@ namespace Gemini.Network
         {
             try
             {
-                return InputDatabaseObject.LoadAsset(Config.Instance.Name_ofYourDigitalTwin).GetTopics();
+                return Config.Instance.YourDatabaseObject.GetTopics();
             }
             catch
             {

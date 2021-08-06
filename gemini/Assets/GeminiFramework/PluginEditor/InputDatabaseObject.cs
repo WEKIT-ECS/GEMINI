@@ -16,7 +16,7 @@ namespace Gemini.Plugin
     {
 
         ///<summary>
-        /// Network protocol class that contains all relevant information for a MQTT connection.
+        /// Network protocol class that contains all relevant information for an MQTT connection.
         /// </summary>
         /// <value></value>
         [Serializable]
@@ -55,6 +55,7 @@ namespace Gemini.Plugin
             public string type = string.Empty;
         }
 
+        public string path = "";
         public MQTT mqtt = new MQTT();
         [SerializeField] public string format = "JSON";
         public List<Input> inputList = new List<Input>();

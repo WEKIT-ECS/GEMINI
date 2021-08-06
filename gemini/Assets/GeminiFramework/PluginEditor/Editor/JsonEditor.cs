@@ -27,15 +27,7 @@ using Gemini.Managers;
 
             public void OpenWindow()
             {
-                var asset = AssetDatabase.LoadAssetAtPath(Config.GetAssetPath(), typeof(InputDatabaseObject));
-                if (asset == null)
-                {
-                    CreateAsset();
-                }
-                else
-                {
-                    Selection.activeObject = asset;
-                }
+                SelectAsset();
             }
 
             void OnSelectionChange()

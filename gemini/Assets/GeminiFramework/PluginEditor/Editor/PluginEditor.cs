@@ -1,5 +1,4 @@
-﻿﻿
-using System;
+﻿﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +20,9 @@ using Gemini.Managers;
         /// <value></value>
         public class PluginEditor : EditorWindow
         {
+            protected static string path = null;
             protected static SerializedObject so = null;
+            protected static InputDatabaseObject io = null;
             protected static bool loadFromSettings = false;
             protected static bool inStartingWindow = true;
             
@@ -44,57 +45,51 @@ using Gemini.Managers;
                 window.position = pos;
             }
 
+            /// <summary>
+            /// Path to Resources folder.
+            /// </summary>
+            public static string GetResourcesPath()
+            {
+                return "Assets/Resources";
+            }
+
             ///<summary>
             /// Creates a new InputDatabaseObject asset used for storing the plugin settings.
             /// </summary>
             /// <value></value>
-            public static void CreateAsset()
+            public static InputDatabaseObject CreateAsset()
             {
-                string currentAssetPath = AssetDatabase.GetAssetPath(Selection.activeObject);
-                string registeredPath = Config.GetAssetPath();
-                /* create new asset only if:
-                    loadFromSettings=False (only set after first window passed and user selected a new asset to create)
-                    or the registered asset file does not exist
-                    else load existing asset
-                */
+                string time = DateTime.Now.ToString().Replace(' ','_').Replace('.','-').Replace(':','-');
+                path = GetResourcesPath() + "/YourDT_" + time + ".asset";
                 InputDatabaseObject asset = ScriptableObject.CreateInstance<InputDatabaseObject>();
-                // if not load asset or file does not exist: create new asset
-                if (!loadFromSettings || !System.IO.File.Exists(registeredPath)){
-                    // if file exists, but create new selected: delete old asset
-                    if (!loadFromSettings && System.IO.File.Exists(registeredPath))
-                        AssetDatabase.DeleteAsset(registeredPath);
-                    AssetDatabase.CreateAsset(asset, registeredPath);
-                    AssetDatabase.SaveAssets();
-                    AssetDatabase.Refresh();
+                if (System.IO.File.Exists(path))
+                {
+                    AssetDatabase.DeleteAsset(path);
                 }
-                // load from settings=true and file exists
-                else{
-                    asset = (InputDatabaseObject) AssetDatabase.LoadAssetAtPath(registeredPath, typeof(InputDatabaseObject));
-                }
+                asset.path = path;
+                AssetDatabase.CreateAsset(asset, path);
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
                 EditorUtility.FocusProjectWindow();
-                Selection.activeObject = asset;
+                return asset;
             }
 
             ///<summary>
-            /// Selects an InputDatabaseObject to be able to use in the windows (required for Reordable lists).
+            /// Selects an InputDatabaseObject to be able to use in the windows (required for Reorderable lists).
             /// </summary>
             /// <value></value>
             public static void SelectAsset()
             {
-                var asset = AssetDatabase.LoadAssetAtPath(Config.GetAssetPath(), typeof(InputDatabaseObject));
-                if (asset == null)
+                if (loadFromSettings && io != null)
                 {
-                    CreateAsset();
+                    path = io.path;
                 }
-                else
-                {
-                    Selection.activeObject = asset;
-                }
-                so = new SerializedObject(Selection.activeObject as InputDatabaseObject);
+                var asset = AssetDatabase.LoadAssetAtPath(path, typeof(InputDatabaseObject));
+                Selection.activeObject = asset;
             }
 
             ///<summary>
-            /// Refocuses the asset when user clicks outside the editor window. Otherwise reordable list would not work.
+            /// Refocuses the asset when user clicks outside the editor window. Otherwise Reorderable list would not work.
             /// </summary>
             /// <value></value>
             public void OnFocus()
@@ -102,7 +97,6 @@ using Gemini.Managers;
                 if (!inStartingWindow)
                     SelectAsset();
             }
-
         }
 
     }

@@ -133,7 +133,7 @@ using Gemini.Managers;
             }
 
             ///<summary>
-            /// If an input is selected on the window, show a second ReordableList with its states.
+            /// If an input is selected on the window, show a second ReorderableList with its states.
             /// </summary>
             /// <value></value>
             void SelectInput(ReorderableList inputList)
@@ -189,7 +189,8 @@ using Gemini.Managers;
                         }
                         catch
                         {
-                            Debug.Log("t_value should be numerical!");
+                            if (stateSerializedState.FindPropertyRelative("identifier").stringValue != "")
+                                Debug.Log("t_value should be numerical!");
                         }
                     }
                     
@@ -222,7 +223,7 @@ using Gemini.Managers;
             /// <value></value>
             void DrawProperty(Rect rect, int index, bool isActive, bool isFocused)
             {
-                // Added tons of debugging to help if you have issues:
+                // Added debugging:
                 var inputListSerializedState = so.FindProperty("inputList");
                 if (inputListSerializedState == null) { Debug.Log("inputList is null!"); return; }
                 if (!inputListSerializedState.isArray) { Debug.Log("inputList is not an array!"); return; }
@@ -270,10 +271,11 @@ using Gemini.Managers;
                 var inputDatabaseObject = Selection.activeObject as InputDatabaseObject;
                 GameObject barPrefabRef = (GameObject)AssetDatabase.LoadMainAssetAtPath("Assets/GeminiFramework/Prefabs/ProgressBar/ProgressBar.prefab");
                 foreach (InputDatabaseObject.Input input in inputDatabaseObject.inputList)
-                {                    
+                {
+                    Debug.Log("hi");                    
                     GameObject instanceRoot = (GameObject)PrefabUtility.InstantiatePrefab(barPrefabRef);
                     instanceRoot.GetComponent<ProgressBar>().states = input.states;
-                    List < Color > sColors = new List<Color>();
+                    List <Color> sColors = new List<Color>();
                     foreach (InputDatabaseObject.State state in input.states)
                     {
                         sColors.Add(instanceRoot.GetComponent<ProgressBar>().BarColor);
@@ -285,7 +287,8 @@ using Gemini.Managers;
                     mapping.sensorName = input.name;
                     mapping.topic = input.topic;
                     mapping.path = input.path;
-                    mapping.mappedObject = instanceRoot;
+                    mapping.mappedObjects = new GameObject[1];
+                    mapping.mappedObjects[0] = instanceRoot;
                     instance.AddSensorMapping(mapping);
                 }
             }
