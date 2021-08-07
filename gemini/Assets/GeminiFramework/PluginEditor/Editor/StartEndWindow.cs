@@ -49,6 +49,7 @@ using Gemini.Managers;
                 {
                     SelectAsset();
                     Config.Instance.YourDatabaseObject = io;
+                    io.path = AssetDatabase.GetAssetPath(io);
                 }
 
                 if (GUILayout.Button("Next", GUILayout.Width(150)) && (io != null || _selected == 0))
